@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>توی‌واندر | دنیای شادی و بازی</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'sans-serif'], // Set Vazirmatn as default
+                    },
+                    colors: {
+                        toy: {
+                            primary: '#6EC1E4',   // Soft Sky Blue
+                            secondary: '#8B7CF6', // Warm Lavender
+                            accent: '#FF8A65',    // Soft Coral
+                            success: '#7ED9A8',   // Mint Green
+                            bg: '#F9FAFC',        // Off-white
+                            dark: '#2E2E2E',      // Charcoal
+                            gray: '#6B7280',      // Muted Gray
+                            footer: '#5B5FEF'     // Deep Lavender
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #F9FAFC;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #6EC1E4;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8B7CF6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="bg-toy-bg text-toy-dark font-sans antialiased selection:bg-toy-primary selection:text-white">
+
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="bg-toy-primary text-white w-10 h-10 rounded-full flex items-center justify-center text-xl font-black rotate-3 group-hover:rotate-12 transition-transform">ت</div>
+                <span class="text-2xl font-black text-toy-secondary tracking-tight">توی<span class="text-toy-primary">واندر</span></span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 font-bold text-toy-gray">
+                <a href="#" class="hover:text-toy-secondary transition-colors">خانه</a>
+                <a href="#new-arrivals" class="hover:text-toy-secondary transition-colors">جدیدترین‌ها</a>
+                <a href="#products" class="hover:text-toy-secondary transition-colors">محصولات</a>
+                <a href="#" class="hover:text-toy-secondary transition-colors">مشاوران</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <button class="w-10 h-10 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center hover:bg-pink-200 transition-colors" aria-label="Instagram">
+                    <i class="fab fa-instagram text-xl"></i>
+                </button>
+
+                <button class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center hover:bg-green-200 transition-colors" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </button>
+
+                <button class="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-toy-primary to-toy-secondary text-white font-bold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all text-sm">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>دانلود کاتالوگ</span>
+                </button>
+
+                <button class="md:hidden text-toy-dark text-2xl mr-2">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="relative overflow-hidden py-16 lg:py-24">
+        <div class="absolute top-0 left-0 w-96 h-96 bg-toy-primary/10 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/2"></div>
+        <div class="absolute bottom-0 right-0 w-72 h-72 bg-toy-secondary/10 rounded-full blur-3xl translate-y-1/2 translate-x-1/2"></div>
+
+        <div class="container mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div class="text-center lg:text-right order-2 lg:order-1">
+                <span class="inline-block px-4 py-1.5 rounded-full bg-toy-accent/10 text-toy-accent font-bold text-sm mb-6 tracking-wide">
+                    🎈 سرگرمی برای تمام سنین
+                </span>
+                <h1 class="text-4xl lg:text-6xl font-black leading-tight mb-6 text-toy-dark">
+                    دنیای اسباب‌بازی‌ها در یک <span class="text-transparent bg-clip-text bg-gradient-to-l from-toy-secondary to-toy-primary">مکان شاد</span>
+                </h1>
+                <p class="text-lg text-toy-gray mb-8 max-w-lg mx-auto lg:mx-0 leading-loose">
+                    مجموعه‌ای جادویی از اسباب‌بازی‌های آموزشی، ایمن و فوق‌العاده سرگرم‌کننده را کشف کنید که برای جرقه زدن خلاقیت و خنده برای کودکان شما طراحی شده‌اند.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                    <a href="#products" class="px-8 py-4 rounded-full bg-toy-dark text-white font-bold text-lg hover:bg-toy-primary transition-colors shadow-lg shadow-toy-primary/30">
+                        مشاهده فروشگاه
+                    </a>
+                    <button class="px-8 py-4 rounded-full bg-white text-toy-dark border-2 border-toy-bg font-bold text-lg hover:border-toy-primary hover:text-toy-primary transition-colors flex items-center justify-center gap-2">
+                         <i class="fas fa-play text-sm"></i> تماشای ویدئو
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative order-1 lg:order-2">
+                <div class="relative z-10 animate-float">
+                    <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Toy Airplane" class="w-full max-w-lg mx-auto drop-shadow-2xl rounded-3xl rotate-[-5deg] hover:rotate-0 transition-transform duration-500">
+                </div>
+
+                <div class="absolute top-10 right-10 text-4xl text-toy-accent animate-float-delayed drop-shadow-md">
+                    <i class="fas fa-music"></i>
+                </div>
+                <div class="absolute bottom-20 left-10 text-5xl text-toy-success animate-float drop-shadow-md">
+                    <i class="fas fa-shapes"></i>
+                </div>
+                <div class="absolute top-1/2 left-0 text-3xl text-toy-primary animate-pulse">
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-10">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-2xl shadow-sm p-8 flex flex-wrap justify-center md:justify-between items-center gap-8 opacity-80" dir="ltr">
+                <div class="flex items-center gap-2 text-2xl font-bold text-gray-400 grayscale hover:grayscale-0 hover:text-toy-primary transition-all cursor-pointer">
+                    <i class="fab fa-lego"></i> LEGO
+                </div>
+                <div class="flex items-center gap-2 text-2xl font-bold text-gray-400 grayscale hover:grayscale-0 hover:text-pink-500 transition-all cursor-pointer">
+                    <i class="fas fa-robot"></i> Mattel
+                </div>
+                <div class="flex items-center gap-2 text-2xl font-bold text-gray-400 grayscale hover:grayscale-0 hover:text-blue-600 transition-all cursor-pointer">
+                    <i class="fas fa-gamepad"></i> Hasbro
+                </div>
+                <div class="flex items-center gap-2 text-2xl font-bold text-gray-400 grayscale hover:grayscale-0 hover:text-yellow-500 transition-all cursor-pointer">
+                    <i class="fas fa-puzzle-piece"></i> Fisher
+                </div>
+                <div class="flex items-center gap-2 text-2xl font-bold text-gray-400 grayscale hover:grayscale-0 hover:text-green-500 transition-all cursor-pointer">
+                    <i class="fas fa-frog"></i> LeapFrog
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="new-arrivals" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-toy-secondary font-bold text-sm">تازه از کارخانه</span>
+                <h2 class="text-4xl font-black text-toy-dark mt-2">جدیدترین‌های ما</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="group bg-white rounded-2xl border border-gray-100 p-4 hover:shadow-soft hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative bg-toy-bg rounded-xl p-6 mb-4 overflow-hidden">
+                        <span class="absolute top-3 right-3 bg-toy-accent text-white text-xs font-bold px-3 py-1 rounded-full z-10">%20 تخفیف</span>
+                        <img src="https://images.unsplash.com/photo-1555445054-016333f99d12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Plush Bear" class="w-full h-48 object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex text-yellow-400 text-xs dir-ltr justify-end">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-toy-dark group-hover:text-toy-primary transition-colors">آقای خرس مهربان</h3>
+                        <div class="flex items-center justify-between mt-3">
+                            <div class="flex flex-col">
+                                <span class="text-xs text-gray-400 line-through">600,000</span>
+                                <span class="text-xl font-black text-toy-secondary">480,000 <span class="text-xs text-gray-500">تومان</span></span>
+                            </div>
+                            <button class="w-10 h-10 rounded-full bg-toy-primary/10 text-toy-primary hover:bg-toy-primary hover:text-white flex items-center justify-center transition-all">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group bg-white rounded-2xl border border-gray-100 p-4 hover:shadow-soft hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative bg-toy-bg rounded-xl p-6 mb-4 overflow-hidden">
+                        <span class="absolute top-3 right-3 bg-toy-success text-white text-xs font-bold px-3 py-1 rounded-full z-10">جدید</span>
+                        <img src="https://images.unsplash.com/photo-1587654780291-39c940483713?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Lego House" class="w-full h-48 object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex text-yellow-400 text-xs dir-ltr justify-end">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="far fa-star"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-toy-dark group-hover:text-toy-primary transition-colors">خانه رویایی لگو</h3>
+                        <div class="flex items-center justify-between mt-3">
+                            <span class="text-xl font-black text-toy-secondary">950,000 <span class="text-xs text-gray-500">تومان</span></span>
+                            <button class="w-10 h-10 rounded-full bg-toy-primary/10 text-toy-primary hover:bg-toy-primary hover:text-white flex items-center justify-center transition-all">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group bg-white rounded-2xl border border-gray-100 p-4 hover:shadow-soft hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative bg-toy-bg rounded-xl p-6 mb-4 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Wooden Car" class="w-full h-48 object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex text-yellow-400 text-xs dir-ltr justify-end">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-toy-dark group-hover:text-toy-primary transition-colors">ماشین چوبی کلاسیک</h3>
+                        <div class="flex items-center justify-between mt-3">
+                            <span class="text-xl font-black text-toy-secondary">320,000 <span class="text-xs text-gray-500">تومان</span></span>
+                            <button class="w-10 h-10 rounded-full bg-toy-primary/10 text-toy-primary hover:bg-toy-primary hover:text-white flex items-center justify-center transition-all">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group bg-white rounded-2xl border border-gray-100 p-4 hover:shadow-soft hover:-translate-y-2 transition-all duration-300">
+                    <div class="relative bg-toy-bg rounded-xl p-6 mb-4 overflow-hidden">
+                        <span class="absolute top-3 right-3 bg-toy-accent text-white text-xs font-bold px-3 py-1 rounded-full z-10">داغ</span>
+                        <img src="https://images.unsplash.com/photo-1560156713-7364131dfd53?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" alt="Robot" class="w-full h-48 object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500">
+                    </div>
+                    <div class="space-y-2">
+                        <div class="flex text-yellow-400 text-xs dir-ltr justify-end">
+                            <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-toy-dark group-hover:text-toy-primary transition-colors">ربات هوشمند 3000</h3>
+                        <div class="flex items-center justify-between mt-3">
+                            <span class="text-xl font-black text-toy-secondary">1,200,000 <span class="text-xs text-gray-500">تومان</span></span>
+                            <button class="w-10 h-10 rounded-full bg-toy-primary/10 text-toy-primary hover:bg-toy-primary hover:text-white flex items-center justify-center transition-all">
+                                <i class="fas fa-shopping-bag"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="py-20 bg-toy-bg">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div class="text-right w-full">
+                    <h2 class="text-4xl font-black text-toy-dark">محصولات محبوب</h2>
+                    <p class="text-toy-gray mt-2">انتخابی ویژه برای کودکان باهوش شما</p>
+                </div>
+                <a href="#" class="text-toy-primary font-bold hover:text-toy-secondary mt-4 md:mt-0 whitespace-nowrap flex items-center gap-2">
+                    مشاهده همه <i class="fas fa-arrow-left text-sm"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group">
+                    <img src="https://images.unsplash.com/photo-1618842676088-c4d48a6a7c9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="Toy">
+                    <h4 class="font-bold text-gray-800 mb-4">حلقه‌های هوش رنگی</h4>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">150,000 <span class="text-xs">تومان</span></span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group">
+                    <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="Toy">
+                    <h4 class="font-bold text-gray-800 mb-4">هواپیمای چوبی</h4>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">290,000 <span class="text-xs">تومان</span></span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group">
+                    <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="Toy">
+                    <h4 class="font-bold text-gray-800 mb-4">خانواده اردک‌ها</h4>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">180,000 <span class="text-xs">تومان</span></span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group">
+                    <img src="https://images.unsplash.com/photo-1535572290543-523a08f125f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="Toy">
+                    <h4 class="font-bold text-gray-800 mb-4">مکعب اشکال</h4>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">310,000 <span class="text-xs">تومان</span></span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group">
+                    <img src="https://images.unsplash.com/photo-1599623560574-39d485900c95?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="Toy">
+                    <h4 class="font-bold text-gray-800 mb-4">بلوک‌های الفبا</h4>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">200,000 <span class="text-xs">تومان</span></span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group">
+                    <img src="https://images.unsplash.com/photo-1513884923967-4b182ef1671f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="Toy">
+                    <h4 class="font-bold text-gray-800 mb-4">جعبه هدیه سورپرایز</h4>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">450,000 <span class="text-xs">تومان</span></span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group">
+                    <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="Toy">
+                    <h4 class="font-bold text-gray-800 mb-4">عروسک ابرقهرمان</h4>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">190,000 <span class="text-xs">تومان</span></span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group">
+                    <img src="https://images.unsplash.com/photo-1566576912902-1d61994e9f73?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="Toy">
+                    <h4 class="font-bold text-gray-800 mb-4">دایناسور پولیشی</h4>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">220,000 <span class="text-xs">تومان</span></span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <div class="bg-gradient-to-r from-toy-secondary to-toy-primary rounded-3xl p-10 lg:p-16 text-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full translate-x-1/2 -translate-y-1/2"></div>
+                <div class="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full -translate-x-1/2 translate-y-1/2"></div>
+
+                <div class="relative z-10 max-w-2xl mx-auto">
+                    <div class="inline-block bg-white/20 p-3 rounded-full mb-6">
+                        <i class="fas fa-envelope-open-text text-3xl text-white"></i>
+                    </div>
+                    <h2 class="text-3xl lg:text-5xl font-black text-white mb-4">دریافت اخبار جادویی اسباب‌بازی‌ها</h2>
+                    <p class="text-white/90 mb-8 text-lg">به خبرنامه ما بپیوندید تا از تخفیف‌های ویژه، ورود کالاهای جدید و نکات تربیتی باخبر شوید!</p>
+
+                    <form class="flex flex-col sm:flex-row gap-4">
+                        <input type="email" placeholder="ایمیل خود را وارد کنید" class="flex-1 px-6 py-4 rounded-full border-none outline-none focus:ring-4 focus:ring-toy-accent/50 text-toy-dark placeholder-gray-400 text-right">
+                        <button type="button" class="px-8 py-4 rounded-full bg-toy-accent text-white font-bold text-lg hover:bg-orange-500 transition-all shadow-lg hover:shadow-xl hover:-translate-y-1">
+                            عضویت
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-toy-footer text-white pt-20 pb-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <div class="bg-white text-toy-footer w-10 h-10 rounded-full flex items-center justify-center text-xl font-black">ت</div>
+                        <span class="text-2xl font-black tracking-tight">توی‌واندر</span>
+                    </a>
+                    <p class="text-white/70 leading-relaxed mb-6">
+                        ما به قدرت بازی ایمان داریم. اسباب‌بازی‌های ما با دقت انتخاب شده‌اند تا شادی، یادگیری و ایمنی را به هر خانه‌ای بیاورند.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-toy-footer transition-all"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-toy-footer transition-all"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-toy-footer transition-all"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xl mb-6">لینک‌های سریع</h4>
+                    <ul class="space-y-3 text-white/70">
+                        <li><a href="#" class="hover:text-white transition-colors">درباره ما</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">فروشگاه</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">راهنمای سنین</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">کارت هدیه</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xl mb-6">پشتیبانی مشتریان</h4>
+                    <ul class="space-y-3 text-white/70">
+                        <li><a href="#" class="hover:text-white transition-colors">روش‌های ارسال</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">سوالات متداول</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">پیگیری سفارش</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">اطلاعات ایمنی</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xl mb-6">تماس با ما</h4>
+                    <ul class="space-y-4 text-white/70">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1"></i>
+                            <span>تهران، خیابان آزادی، کوچه شادی، پلاک 123</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-phone-alt flip-horizontal"></i>
+                            <span dir="ltr">+98 21 1234 5678</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope"></i>
+                            <span>hello@toywonder.ir</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 text-center text-white/50 text-sm">
+                <p>&copy; 1402 توی‌واندر. طراحی شده با <i class="fas fa-heart text-red-400 mx-1"></i> برای کودکان.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
