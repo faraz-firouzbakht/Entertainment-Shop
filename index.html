@@ -184,12 +184,36 @@
                     <i class="fas fa-file-pdf"></i>
                     <span>Catalog PDF</span>
                 </button>
-                <button class="md:hidden text-toy-dark text-2xl ml-2">
-                    <i class="fas fa-bars"></i>
+                <button id="mobile-menu-btn" class="md:hidden text-toy-dark text-2xl ml-2" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
+                    <i id="mobile-menu-icon" class="fas fa-bars"></i>
                 </button>
             </div>
         </div>
     </header>
+
+    <!-- Mobile menu (small screens) -->
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 z-60 bg-white/95 backdrop-blur-sm p-6 flex flex-col">
+        <div class="flex items-center justify-between mb-6">
+            <a href="#" class="flex items-center gap-2 group">
+                <div class="bg-toy-primary text-white w-10 h-10 rounded-full flex items-center justify-center text-xl font-black rotate-3 transition-transform">T</div>
+                <span class="text-xl font-black text-toy-secondary tracking-tight">Toy<span class="text-toy-primary">Wonder</span></span>
+            </a>
+            <button id="mobile-menu-close" aria-label="Close menu" class="text-2xl">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <nav class="flex flex-col gap-4 text-lg font-bold">
+            <a href="#" class="py-2 border-b border-gray-100">Home</a>
+            <a href="#new-arrivals" class="py-2 border-b border-gray-100">New Arrivals</a>
+            <a href="products.html" class="py-2 border-b border-gray-100">Products</a>
+            <a href="#" class="py-2 border-b border-gray-100">Advisors</a>
+        </nav>
+        <div class="mt-6 flex gap-3">
+            <a href="#" class="w-10 h-10 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center"><i class="fab fa-whatsapp"></i></a>
+            <a href="cart.html" class="ml-auto w-10 h-10 rounded-full bg-white/10 text-toy-dark flex items-center justify-center"><i class="fas fa-shopping-cart"></i></a>
+        </div>
+    </div>
 
     <section class="relative overflow-hidden py-16 lg:py-24">
         <div class="absolute top-0 right-0 w-96 h-96 bg-toy-primary/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
@@ -673,7 +697,7 @@
             });
         })();
     </script>
-
+    <script src="script.js"></script>
     <script>
         /* Minimal error overlay to surface JS errors directly on the page for debugging */
         (function(){
