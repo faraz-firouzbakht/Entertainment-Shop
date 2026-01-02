@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فعال‌سازی حساب کاربری</title>
+    <style>
+        /* استایل‌های اصلی */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #4a90e2, #7b68ee);
+            padding: 30px 20px;
+            text-align: center;
+            color: white;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .content {
+            padding: 30px;
+        }
+        .message {
+            margin-bottom: 25px;
+            font-size: 16px;
+            color: #555;
+        }
+        .activation-button {
+            display: block;
+            width: 220px;
+            margin: 30px auto;
+            padding: 14px 20px;
+            background: linear-gradient(135deg, #4a90e2, #7b68ee);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 16px;
+            box-shadow: 0 4px 10px rgba(74, 144, 226, 0.3);
+            transition: all 0.3s ease;
+        }
+        .activation-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(74, 144, 226, 0.4);
+        }
+        .footer {
+            padding: 20px;
+            text-align: center;
+            background-color: #f9f9f9;
+            color: #777;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+        }
+        .warning {
+            background-color: #fff9e6;
+            border-right: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .social-links {
+            margin-top: 20px;
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #4a90e2;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>فعال‌سازی حساب کاربری</h1>
+        </div>
+        
+        <div class="content">
+            <div class="message">
+                <p>کاربر گرامی،</p>
+                <p>از اینکه فروشگاه آنلاین ما را انتخاب کرده‌اید متشکریم. برای تکمیل فرآیند ثبت‌نام و فعال‌سازی حساب کاربری خود، لطفاً بر روی دکمه زیر کلیک کنید:</p>
+            </div>
+            
+            <a href="http://localhost:8000{% url 'activate_account' email_active_code=user.email_active_code %}" class="activation-button">
+                فعال‌سازی حساب کاربری
+            </a>
+            
+            <div class="warning">
+                <p><strong>توجه:</strong> اگر شما این درخواست را ارسال نکرده‌اید، لطفاً این ایمیل را نادیده بگیرید.</p>
+            </div>
+            
+            <div class="message">
+                <p>در صورت بروز هرگونه مشکل در فعال‌سازی حساب کاربری، با پشتیبانی تماس بگیرید.</p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="logo">فروشگاه آنلاین</div>
+            <p>با تشکر از اعتماد شما</p>
+            <p>تیم پشتیبانی فروشگاه آنلاین</p>
+            <div class="social-links">
+                <a href="#">وبسایت</a> | 
+                <a href="#">اینستاگرام</a> | 
+                <a href="#">تلگرام</a>
+            </div>
+            <p style="margin-top: 15px; font-size: 12px; color: #999;">
+                این ایمیل به صورت خودکار ارسال شده است. لطفاً به آن پاسخ ندهید.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
