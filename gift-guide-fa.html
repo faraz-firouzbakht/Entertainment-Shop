@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>توی‌واندر — راهنمای هدیه</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: { sans: ['Nunito', 'sans-serif'] },
+                colors: {
+                    toy: {
+                        primary: '#6EC1E4',
+                        secondary: '#8B7CF6',
+                        accent: '#FF8A65',
+                        success: '#7ED9A8',
+                        bg: '#F9FAFC',
+                        dark: '#2E2E2E',
+                        gray: '#6B7280',
+                        footer: '#5B5FEF'
+                    }
+                }
+            }
+        }
+    }
+</script>
+
+    <style>
+        :root { --toy-bg: #F9FAFC; --toy-dark: #2E2E2E; --toy-gray: #6B7280; --card-bg: #ffffff; }
+        html.dark { --toy-bg: #0b1220; --toy-dark: #e6eef8; --toy-gray: #9CA3AF; --card-bg: #0f1724; --accent-secondary-dark: #C7D0FF; }
+        body { background-color: var(--toy-bg); color: var(--toy-dark); }
+        html.dark header { background-color: rgba(8,12,20,0.9) !important; }
+        html.dark .bg-white { background-color: var(--card-bg) !important; }
+        html.dark .bg-toy-bg { background-color: var(--toy-bg) !important; }
+        html.dark .text-toy-dark { color: var(--toy-dark) !important; }
+        html.dark .text-toy-gray { color: var(--toy-gray) !important; }
+        html.dark .bg-white/20 { background-color: rgba(255,255,255,0.04) !important; }
+
+        /* Filters & horizontal toolbar styling (modern) */
+        .filters-bar { display:flex; gap:1rem; align-items:center; padding:0.75rem; border-radius:1rem; background-color: var(--card-bg); border:1px solid rgba(0,0,0,0.06); box-shadow: 0 10px 30px rgba(2,6,23,0.06); overflow: visible; }
+        .filters-group { display:flex; gap:0.75rem; align-items:center; }
+        .filters-container { position:relative; }
+        .filters-btn { padding:0.5rem 0.9rem; border-radius:0.65rem; background:transparent; border:1px solid rgba(0,0,0,0.06); cursor:pointer; display:flex; gap:0.6rem; align-items:center; white-space:nowrap; font-weight:600; color:var(--toy-dark); transition:all .18s; }
+        .filters-btn:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(110,193,228,0.08); }
+        .filters-btn[data-group="age"]:hover { background: linear-gradient(90deg, rgba(110,193,228,0.12), rgba(139,124,246,0.08)); }
+        .filters-btn[data-group="interest"]:hover { background: linear-gradient(90deg, rgba(255,183,77,0.12), rgba(255,138,101,0.08)); }
+        .filters-btn[data-group="occasion"]:hover { background: linear-gradient(90deg, rgba(244,143,177,0.12), rgba(206,147,216,0.08)); }
+        .filters-btn[data-group="price"]:hover { background: linear-gradient(90deg, rgba(126,217,168,0.12), rgba(110,193,228,0.08)); }
+        .filters-btn .chev { transition: transform .18s; }
+        .filters-btn.open .chev { transform: rotate(180deg); }
+        .filters-panel { position:absolute; margin-top:0.6rem; right:0; background:var(--card-bg); padding:0.85rem; border-radius:0.6rem; box-shadow: 0 18px 40px rgba(2,6,23,0.12); display:grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap:0.6rem; z-index:60; opacity:0; transform:translateY(-6px) scale(.99); pointer-events:none; transition:opacity .18s, transform .18s; min-width: 360px; }
+        .filters-panel.open { opacity:1; transform:translateY(0) scale(1); pointer-events:auto; }
+        .filters-panel header { display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; }
+        .filters-panel .panel-close { background:transparent; border:none; color:var(--toy-gray); cursor:pointer; font-size:16px; padding:4px; }
+        .filter-pill { padding:0.5rem 0.85rem; border-radius:999px; border:1px solid rgba(0,0,0,0.06); background:transparent; cursor:pointer; transition:all .15s; white-space:normal; font-weight:600; max-width:260px; text-align:center; overflow-wrap:break-word; }
+        .filter-pill:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(110,193,228,0.06); }
+        .filter-pill.active { background:linear-gradient(90deg,var(--toy-primary),var(--toy-secondary)); color:#fff; border-color:transparent; box-shadow:0 8px 30px rgba(110,193,228,0.16); }
+        .filters-right { margin-right:auto; display:flex; gap:0.75rem; align-items:center; }
+        @media (max-width: 767px) {
+            .filters-panel { position:static; display:none; grid-template-columns: repeat(auto-fit,minmax(120px,1fr)); opacity:1; transform:none; pointer-events:auto; }
+            .filters-panel.open { display:grid; }
+            .filters-bar { padding:0.5rem; }
+            .filters-btn { padding:0.45rem 0.7rem; }
+            .filter-pill { padding:0.45rem 0.6rem; }
+        }
+        @media (min-width: 768px) { .filters-panel { min-width: 420px; } }
+
+        /* Colorful group icons and hoverable pills */
+        .filters-btn i.group-icon { width:28px; height:28px; display:inline-flex; align-items:center; justify-content:center; border-radius:999px; color:#fff; transition:transform .18s, box-shadow .18s, background .18s; }
+        .filters-btn[data-group="age"] i.group-icon { background: linear-gradient(90deg,#6EC1E4,#8B7CF6); box-shadow:0 6px 18px rgba(110,193,228,0.12); }
+        .filters-btn[data-group="interest"] i.group-icon { background: linear-gradient(90deg,#FFB74D,#FF8A65); box-shadow:0 6px 18px rgba(255,138,101,0.12); }
+        .filters-btn[data-group="occasion"] i.group-icon { background: linear-gradient(90deg,#F48FB1,#CE93D8); box-shadow:0 6px 18px rgba(206,147,216,0.12); }
+        .filters-btn[data-group="price"] i.group-icon { background: linear-gradient(90deg,#7ED9A8,#6EC1E4); box-shadow:0 6px 18px rgba(126,217,168,0.12); }
+        .filters-btn:hover i.group-icon { transform: translateY(-3px) rotate(6deg) scale(1.05); box-shadow:0 12px 30px rgba(0,0,0,0.12); }
+
+        /* Colorful hover for pills by group */
+        .filters-panel[data-group="age"] .filter-pill:hover { background: linear-gradient(90deg,#6EC1E4,#8B7CF6); color:#fff; box-shadow:0 10px 30px rgba(110,193,228,0.12); }
+        .filters-panel[data-group="interest"] .filter-pill:hover { background: linear-gradient(90deg,#FFB74D,#FF8A65); color:#062018; box-shadow:0 10px 30px rgba(255,138,101,0.12); }
+        .filters-panel[data-group="occasion"] .filter-pill:hover { background: linear-gradient(90deg,#F48FB1,#CE93D8); color:#fff; box-shadow:0 10px 30px rgba(206,147,216,0.12); }
+        .filters-panel[data-group="price"] .filter-pill:hover { background: linear-gradient(90deg,#7ED9A8,#6EC1E4); color:#062018; box-shadow:0 10px 30px rgba(126,217,168,0.12); }
+
+        /* Improve transitions for pills */
+        .filter-pill { transition: all .18s ease; }
+        .filter-pill.active { box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+
+        /* Pagination */
+        #pagination { display:flex; align-items:center; justify-content:center; gap:0.5rem; margin-top:0.75rem; }
+        #pagination button { border:1px solid rgba(0,0,0,0.06); background:transparent; padding:0.35rem 0.6rem; border-radius:0.5rem; cursor:pointer; transition:all .18s ease; color: var(--toy-dark); }
+        #pagination button:disabled { opacity:0.5; cursor:default; }
+        #pagination button.p-active:disabled { opacity:1; }
+        #pagination div { opacity:0.85; }
+        #pagination button.p-active { box-shadow: 0 8px 30px rgba(110,193,228,0.12); }
+
+        /* Hover & focus states for new pagination */
+        .pg-btn { border:1px solid rgba(0,0,0,0.06); background:transparent; padding:0.45rem 0.6rem; border-radius:999px; cursor:pointer; transition:all .18s ease; color: var(--toy-dark); display:inline-flex; align-items:center; justify-content:center; }
+        .pg-btn:disabled { opacity:0.45; cursor:default; }
+        .pg-btn:hover:not(:disabled) { transform: translateY(-3px); box-shadow:0 12px 30px rgba(110,193,228,0.12); }
+        .pg-num { min-width:36px; }
+        .pg-active { background: linear-gradient(90deg, var(--toy-primary), var(--toy-secondary)); color:#fff !important; border-color: transparent; box-shadow: 0 12px 40px rgba(110,193,228,0.16); }
+        .pg-btn:focus { outline: none; box-shadow: 0 0 0 6px rgba(110,193,228,0.08); }
+        /* In dark mode make sure text is readable */
+        html.dark .pg-btn { color: var(--toy-dark); }
+
+
+    </style>
+</head>
+<body class="bg-toy-bg text-toy-dark font-sans antialiased">
+
+    <!-- Header (copied from index with Gift Guide link active) -->
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index-fa.html" class="flex items-center gap-2 group">
+                <div class="bg-toy-primary text-white w-10 h-10 rounded-full flex items-center justify-center text-xl font-black rotate-3 group-hover:rotate-12 transition-transform">T</div>
+                <span class="text-2xl font-black text-toy-secondary tracking-tight">توی‌<span class="text-toy-primary">واندر</span></span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 font-bold text-toy-gray">
+                <a href="index-fa.html" class="hover:text-toy-secondary transition-colors">خانه</a>
+                <a href="#new-arrivals" class="hover:text-toy-secondary transition-colors">تازه‌ها</a>
+                <a href="products-fa.html" class="hover:text-toy-secondary transition-colors">محصولات</a>
+                <a href="gift-guide-fa.html" class="hover:text-toy-secondary transition-colors">راهنمای هدیه</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <a href="gift-guide.html" class="w-10 h-10 rounded-full bg-gray-100 text-gray-700 flex items-center justify-center hover:bg-gray-200 transition-colors" title="English">En</a>
+
+                <button id="theme-toggle-btn" class="w-10 h-10 rounded-full bg-white/10 text-toy-dark flex items-center justify-center hover:bg-white/20 transition-colors" aria-label="تغییر حالت" title="تغییر حالت">
+                    <i id="theme-toggle-icon" class="fas fa-moon"></i>
+                </button>
+
+                <button class="w-10 h-10 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center hover:bg-pink-200 transition-colors" aria-label="Instagram">
+                    <i class="fab fa-instagram text-xl"></i>
+                </button>
+                <button class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center hover:bg-green-200 transition-colors" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </button>
+
+                <!-- Shopping cart -->
+                <a href="cart.html" class="relative w-10 h-10 rounded-full bg-white/10 text-toy-dark flex items-center justify-center hover:bg-white/20 transition-colors" aria-label="نمایش سبد" title="سبد خرید">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-count" class="absolute -top-1 -left-1 bg-toy-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">0</span>
+                </a>
+
+                <!-- User account (link to account page) -->
+                <a href="account-fa.html" class="relative w-10 h-10 rounded-full bg-white/10 text-toy-dark flex items-center justify-center hover:bg-white/20 transition-colors" title="حساب">
+                    <i class="fas fa-user text-xl"></i>
+                </a>
+
+                <button class="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-toy-primary to-toy-secondary text-white font-bold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all text-sm">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>کاتالوگ PDF</span>
+                </button>
+                <button id="mobile-menu-btn" class="md:hidden text-toy-dark text-2xl mr-2" aria-controls="mobile-menu" aria-expanded="false" aria-label="باز کردن منو">
+                    <i id="mobile-menu-icon" class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="py-16 lg:py-24">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h1 class="text-4xl lg:text-5xl font-black mb-4">راهنمای هدیه</h1>
+                <p class="text-toy-gray">هدیهٔ مناسب را سریع پیدا کنید — با فیلتر بر اساس سن، علاقه، مناسبت یا قیمت، انتخاب‌های مناسب پیدا کنید.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gift Guide Filters (horizontal) & Results -->
+    <main class="container mx-auto px-4 pb-20">
+        <div class="flex flex-col gap-4">
+            <div class="filters-bar" id="filters-bar">
+                <div class="filters-group">
+                    <!-- Age -->
+                    <div class="filters-container" style="position:relative;">
+                        <button class="filters-btn" data-group="age" aria-expanded="false" aria-controls="panel-age"> <i class="group-icon fas fa-child"></i> <span class="mr-2">سن</span> <i class="fas fa-chevron-down chev mr-3"></i></button>
+                        <div class="filters-panel" id="panel-age" data-group="age" role="dialog" aria-modal="false">
+                            <header>
+                                <strong>خرید بر اساس سن</strong>
+                                <button class="panel-close" aria-label="بستن">&times;</button>
+                            </header>
+                            <button class="filter-pill" data-value="0-12">0–12 ماه</button>
+                            <button class="filter-pill" data-value="1-2">1–2 سال</button>
+                            <button class="filter-pill" data-value="3-4">3–4 سال</button>
+                            <button class="filter-pill" data-value="5-7">5–7 سال</button>
+                            <button class="filter-pill" data-value="8-10">8–10 سال</button>
+                            <button class="filter-pill" data-value="11-13">11–13 سال</button>
+                            <button class="filter-pill" data-value="teens">نوجوانان</button>
+                            <button class="filter-pill" data-value="all-ages">تمام سنین</button>
+                        </div>
+                    </div>
+
+                    <!-- Interest -->
+                    <div class="filters-container" style="position:relative;">
+                        <button class="filters-btn" data-group="interest" aria-expanded="false" aria-controls="panel-interest"> <i class="group-icon fas fa-lightbulb"></i> <span class="mr-2">علایق</span> <i class="fas fa-chevron-down chev mr-3"></i></button>
+                        <div class="filters-panel" id="panel-interest" data-group="interest" role="dialog" aria-modal="false">
+                            <header>
+                                <strong>خرید بر اساس علاقه</strong>
+                                <button class="panel-close" aria-label="بستن">&times;</button>
+                            </header>
+                            <button class="filter-pill" data-value="educational">آموزشی و یادگیری</button>
+                            <button class="filter-pill" data-value="creative">خلاقیت و هنر</button>
+                            <button class="filter-pill" data-value="building">ساخت و STEM</button>
+                            <button class="filter-pill" data-value="action">اکشن و ماجراجویی</button>
+                            <button class="filter-pill" data-value="dolls">عروسک و نقش‌آفرینی</button>
+                            <button class="filter-pill" data-value="games">بازی‌ها و پازل</button>
+                            <button class="filter-pill" data-value="outdoor">بیرون و ورزش</button>
+                            <button class="filter-pill" data-value="tech">تکنولوژی و الکترونیک</button>
+                        </div>
+                    </div>
+
+                    <!-- Occasion -->
+                    <div class="filters-container" style="position:relative;">
+                        <button class="filters-btn" data-group="occasion" aria-expanded="false" aria-controls="panel-occasion"> <i class="group-icon fas fa-gift"></i> <span class="mr-2">مناسبت</span> <i class="fas fa-chevron-down chev mr-3"></i></button>
+                        <div class="filters-panel" id="panel-occasion" data-group="occasion" role="dialog" aria-modal="false">
+                            <header>
+                                <strong>خرید بر اساس مناسبت</strong>
+                                <button class="panel-close" aria-label="بستن">&times;</button>
+                            </header>
+                            <button class="filter-pill" data-value="birthday">هدایای تولد</button>
+                            <button class="filter-pill" data-value="holiday">هدایای تعطیلات</button>
+                            <button class="filter-pill" data-value="christmas">کریسمس / سال نو</button>
+                            <button class="filter-pill" data-value="backtoschool">بازگشت به مدرسه</button>
+                            <button class="filter-pill" data-value="reward">هدایای تشویقی</button>
+                        </div>
+                    </div>
+
+                    <!-- Price -->
+                    <div class="filters-container" style="position:relative;">
+                        <button class="filters-btn" data-group="price" aria-expanded="false" aria-controls="panel-price"> <i class="group-icon fas fa-dollar-sign"></i> <span class="mr-2">قیمت</span> <i class="fas fa-chevron-down chev mr-3"></i></button>
+                        <div class="filters-panel" id="panel-price" data-group="price" role="dialog" aria-modal="false">
+                            <header>
+                                <strong>خرید بر اساس قیمت</strong>
+                                <button class="panel-close" aria-label="بستن">&times;</button>
+                            </header>
+                            <button class="filter-pill" data-value="under-10">زیر $10</button>
+                            <button class="filter-pill" data-value="10-25">$10 – $25</button>
+                            <button class="filter-pill" data-value="25-50">$25 – $50</button>
+                            <button class="filter-pill" data-value="50-100">$50 – $100</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filters-right">
+                    <label class="text-sm text-toy-gray ml-2">مرتب‌سازی</label>
+                    <select id="sort-select" class="px-3 py-2 rounded-md border bg-white text-sm">
+                        <option value="recommended">پیشنهادی</option>
+                        <option value="price-asc">قیمت: کم → زیاد</option>
+                        <option value="price-desc">قیمت: زیاد → کم</option>
+                    </select>
+                    <button id="clear-filters-btn" class="px-3 py-2 rounded-md bg-gradient-to-r from-toy-primary to-toy-secondary text-white mr-2 shadow-md hover:opacity-95 focus:outline-none focus:ring-4 focus:ring-toy-primary/30 flex items-center gap-2" title="پاک کردن همه فیلترها" aria-label="پاک کردن همه فیلترها">
+                        <i class="fas fa-eraser"></i>
+                        <span class="hidden sm:inline">پاک کردن فیلترها</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-end mb-6">
+                <div>
+                    <h2 class="text-4xl font-black text-toy-dark">محصولات محبوب</h2>
+                    <p class="text-toy-gray mt-2">انتخاب‌های ویژه برای هدیه</p>
+                </div>
+                <a href="products.html" class="text-toy-primary font-bold hover:text-toy-secondary mt-4 md:mt-0">نمایش همه اسباب‌بازی‌ها <i class="fas fa-arrow-left mr-1"></i></a>
+            </div>
+
+            <div id="gift-results" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-4">
+                <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group" data-price="12.5" data-age="0-12" data-interest="educational" data-occasion="birthday">
+                    <img src="https://images.unsplash.com/photo-1618842676088-c4d48a6a7c9d?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="حلقه‌های چیدنی">
+                    <h4 class="font-bold text-gray-800 mb-1">حلقه‌های چیدنی</h4>
+                    <div class="w-full bg-gray-100 rounded-full h-1.5 mb-3">
+                        <div class="bg-toy-success h-1.5 rounded-full" style="width: 90%"></div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">$12.50</span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group" data-price="29.99" data-age="3-4" data-interest="vehicles" data-occasion="holiday">
+                    <img src="https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="هواپیمای چوبی">
+                    <h4 class="font-bold text-gray-800 mb-1">هواپیمای چوبی</h4>
+                    <div class="w-full bg-gray-100 rounded-full h-1.5 mb-3">
+                        <div class="bg-toy-success h-1.5 rounded-full" style="width: 85%"></div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">$29.99</span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group" data-price="15.00" data-age="0-12" data-interest="plush" data-occasion="birthday">
+                    <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="خانواده اردک‌ها">
+                    <h4 class="font-bold text-gray-800 mb-1">خانواده اردک‌ها</h4>
+                    <div class="w-full bg-gray-100 rounded-full h-1.5 mb-3">
+                        <div class="bg-toy-success h-1.5 rounded-full" style="width: 70%"></div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">$15.00</span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group" data-price="32.00" data-age="1-2" data-interest="educational" data-occasion="backtoschool">
+                    <img src="https://unsplash.com/photos/a-group-of-stuffed-animals-sitting-next-to-each-other-lU8em0naCuY" class="w-full h-40 object-cover rounded-lg mb-4" alt="جداساز اشکال">
+                    <h4 class="font-bold text-gray-800 mb-1">جداساز اشکال</h4>
+                    <div class="w-full bg-gray-100 rounded-full h-1.5 mb-3">
+                        <div class="bg-toy-success h-1.5 rounded-full" style="width: 95%"></div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">$32.00</span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group" data-price="19.50" data-age="1-2" data-interest="educational" data-occasion="birthday">
+                    <img src="https://images.unsplash.com/photo-1599623560574-39d485900c95?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="بلوک‌های الفبا">
+                    <h4 class="font-bold text-gray-800 mb-1">بلوک‌های الفبا</h4>
+                    <div class="w-full bg-gray-100 rounded-full h-1.5 mb-3">
+                        <div class="bg-toy-success h-1.5 rounded-full" style="width: 100%"></div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">$19.50</span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group" data-price="55.00" data-age="8-10" data-interest="giftset" data-occasion="holiday">
+                    <img src="https://images.unsplash.com/photo-1513884923967-4b182ef1671f?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="مجموعه جعبه هدیه">
+                    <h4 class="font-bold text-gray-800 mb-1">مجموعه جعبه هدیه</h4>
+                    <div class="w-full bg-gray-100 rounded-full h-1.5 mb-3">
+                        <div class="bg-toy-success h-1.5 rounded-full" style="width: 80%"></div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">$55.00</span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                 <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group" data-price="14.99" data-age="5-7" data-interest="action" data-occasion="birthday">
+                    <img src="https://images.unsplash.com/photo-1545558014-8692077e9b5c?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="ابرقهرمان">
+                    <h4 class="font-bold text-gray-800 mb-1">ابرقهرمان</h4>
+                    <div class="w-full bg-gray-100 rounded-full h-1.5 mb-3">
+                        <div class="bg-toy-success h-1.5 rounded-full" style="width: 60%"></div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">$14.99</span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+
+                 <div class="bg-white rounded-xl shadow-card p-4 hover:shadow-lg transition-all hover:-translate-y-1 group" data-price="22.00" data-age="3-4" data-interest="plush" data-occasion="birthday">
+                    <img src="https://images.unsplash.com/photo-1566576912902-1d61994e9f73?ixlib=rb-4.0.3&amp;auto=format&amp;fit=crop&amp;w=500&amp;q=80" class="w-full h-40 object-cover rounded-lg mb-4" alt="عروسک دایناسور">
+                    <h4 class="font-bold text-gray-800 mb-1">عروسک دایناسور</h4>
+                    <div class="w-full bg-gray-100 rounded-full h-1.5 mb-3">
+                        <div class="bg-toy-success h-1.5 rounded-full" style="width: 92%"></div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-toy-secondary">$22.00</span>
+                        <button class="bg-toy-success text-white w-8 h-8 rounded-lg flex items-center justify-center hover:bg-green-500 transition-colors">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <nav id="pagination" class="mt-6 flex items-center justify-center gap-2" aria-label="صفحه‌بندی"></nav>
+
+            <div class="mt-8 text-center text-toy-gray">نکته: از فیلترهای بالای صفحه برای محدود کردن نتایج استفاده کنید. در صورت تمایل می‌توانم انتخاب چندگانه یا دکمه بازنشانی اضافه کنم.</div>
+        </div>
+    </main>
+
+    <!-- Footer (copied from index, translated) -->
+    <footer class="bg-toy-footer text-white pt-20 pb-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <div class="bg-white text-toy-footer w-10 h-10 rounded-full flex items-center justify-center text-xl font-black">T</div>
+                        <span class="text-2xl font-black tracking-tight">توی‌واندر</span>
+                    </a>
+                    <p class="text-white/70 leading-relaxed mb-6">ما به قدرت بازی ایمان داریم. اسباب‌بازی‌های ما با دقت انتخاب شده‌اند تا شادی، یادگیری و امنیت را به هر خانه‌ای بیاورند.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold text-xl mb-6">لینک‌های سریع</h4>
+                    <ul class="space-y-3 text-white/70">
+                        <li><a href="index.html" class="hover:text-white transition-colors">درباره ما</a></li>
+                        <li><a href="products.html" class="hover:text-white transition-colors">تمام اسباب‌بازی‌ها</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">راهنمای سنی</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">کارت هدیه</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-xl mb-6">خدمات مشتریان</h4>
+                    <ul class="space-y-3 text-white/70">
+                        <li><a href="#" class="hover:text-white transition-colors">ارسال و بازگشت</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">سوالات متداول</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">پیگیری سفارش</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">اطلاعات ایمنی</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-xl mb-6">تماس با ما</h4>
+                    <ul class="space-y-4 text-white/70">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1"></i>
+                            <span>خیابان رنگین‌کمان ۱۲۳، پلی‌ویل، PL 98765</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope"></i>
+                            <span>hello@toywonder.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 text-center text-white/50 text-sm">
+                <p>&copy; 2026 شرکت ToyWonder. ساخته شده با <i class="fas fa-heart text-red-400 mx-1"></i> برای کودکان.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        (function(){
+            // Theme toggle from other pages
+            const themeToggleBtnId = 'theme-toggle-btn';
+            const themeToggleIconId = 'theme-toggle-icon';
+            function setTheme(isDark){ document.documentElement.classList.toggle('dark', isDark); localStorage.setItem('theme', isDark ? 'dark' : 'light'); const btn=document.getElementById(themeToggleBtnId); const icon=document.getElementById(themeToggleIconId); if(btn && icon){ icon.className = isDark ? 'fas fa-sun text-yellow-400' : 'fas fa-moon'; btn.setAttribute('aria-label', isDark ? 'روشن کردن حالت' : 'تاریک کردن حالت'); }}
+            const saved = localStorage.getItem('theme'); if(saved) setTheme(saved === 'dark'); else setTheme(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+            document.addEventListener('click', function(e){ const target = e.target.closest('#' + themeToggleBtnId); if(!target) return; const isDark = document.documentElement.classList.toggle('dark'); localStorage.setItem('theme', isDark ? 'dark' : 'light'); const icon = document.getElementById(themeToggleIconId); icon.className = isDark ? 'fas fa-sun text-yellow-400' : 'fas fa-moon'; target.setAttribute('aria-label', isDark ? 'روشن کردن حالت' : 'تاریک کردن حالت'); });
+
+            // Filters & sorting logic (horizontal toolbar)
+            const filtersState = { age: new Set(), interest: new Set(), occasion: new Set(), price: new Set() };
+            // Pagination state
+            const pageSize = 8; // items per page
+            let currentPage = 1;
+
+            function applyFilters(){
+                const container = document.getElementById('gift-results');
+                const cards = Array.from(container.querySelectorAll('.group'));
+                let visibleCount = 0;
+                cards.forEach(card => {
+                    let visible = true;
+                    // Age
+                    if(filtersState.age.size){
+                        const ages = (card.dataset.age||'').split(',').map(s=>s.trim());
+                        const ok = [...filtersState.age].some(v => ages.includes(v));
+                        if(!ok) visible = false;
+                    }
+                    // Interest
+                    if(filtersState.interest.size){
+                        const ints = (card.dataset.interest||'').split(',').map(s=>s.trim());
+                        const ok = [...filtersState.interest].some(v => ints.includes(v));
+                        if(!ok) visible = false;
+                    }
+                    // Occasion
+                    if(filtersState.occasion.size){
+                        const occ = (card.dataset.occasion||'').split(',').map(s=>s.trim());
+                        const ok = [...filtersState.occasion].some(v => occ.includes(v));
+                        if(!ok) visible = false;
+                    }
+                    // Price ranges
+                    if(filtersState.price.size){
+                        const price = parseFloat(card.dataset.price||'0');
+                        let ok = false;
+                        filtersState.price.forEach(range => {
+                            if(range === 'under-10') ok = ok || price < 10;
+                            if(range === '10-25') ok = ok || (price >=10 && price <25);
+                            if(range === '25-50') ok = ok || (price >=25 && price <50);
+                            if(range === '50-100') ok = ok || (price >=50 && price <=100);
+                        });
+                        if(!ok) visible = false;
+                    }
+                    card.style.display = visible ? '' : 'none';
+                    if(visible) visibleCount++;
+                });
+
+                // debug log (safe) — shows active filters and visible count
+                console.info('Filters:', {
+                    age: [...filtersState.age],
+                    interest: [...filtersState.interest],
+                    occasion: [...filtersState.occasion],
+                    price: [...filtersState.price]
+                }, 'Visible items:', visibleCount);
+
+                // Reset to first page when filters change
+                currentPage = 1;
+                applySort();
+            }
+
+            // Delegated click handling for panels, buttons, pills (more robust)
+            const filtersBarEl = document.getElementById('filters-bar');
+            console.log('filtersBarEl present?', !!filtersBarEl);
+
+            // Temporary global click trace (short summary) to confirm click targets
+            document.addEventListener('click', function(e){
+                if(!e.target) return;
+                // show minimal info only for elements inside filters-bar to avoid noise
+                const inFilters = !!e.target.closest && !!e.target.closest('#filters-bar');
+                if(inFilters) console.log('GLOBAL click inside filters-bar:', e.target.nodeName, e.target.className || '', e.target.id || '');
+            });
+
+            if(filtersBarEl){
+                // visible logs for click handling
+                filtersBarEl.addEventListener('click', function(e){
+                    // trace the raw target
+                    console.log('filters-bar clicked', { target: e.target, node: e.target.nodeName });
+
+                    const btn = e.target.closest('.filters-btn');
+                    if(btn){
+                        console.log('filters-btn click', btn.dataset.group, btn);
+                        e.stopPropagation();
+                        const group = btn.dataset.group;
+                        // close other panels and reset buttons
+                        document.querySelectorAll('.filters-panel').forEach(p => {
+                            if(p.dataset.group !== group) {
+                                p.classList.remove('open');
+                                const otherBtn = document.querySelector('.filters-btn[data-group="' + p.dataset.group + '"]');
+                                if(otherBtn){ otherBtn.classList.remove('open'); otherBtn.setAttribute('aria-expanded','false'); }
+                            }
+                        });
+                        const panel = document.querySelector('.filters-panel[data-group="' + group + '"]');
+                        if(panel){
+                            const willOpen = !panel.classList.contains('open');
+                            panel.classList.toggle('open', willOpen);
+                            btn.classList.toggle('open', willOpen);
+                            btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+                        }
+                        return;
+                    }
+
+                    const closeBtn = e.target.closest('.panel-close');
+                    if(closeBtn){
+                        console.log('panel-close click', closeBtn);
+                        e.stopPropagation();
+                        const panel = closeBtn.closest('.filters-panel');
+                        if(panel){
+                            panel.classList.remove('open');
+                            const b = document.querySelector('.filters-btn[data-group="' + panel.dataset.group + '"]');
+                            if(b){ b.classList.remove('open'); b.setAttribute('aria-expanded','false'); }
+                        }
+                        return;
+                    }
+
+                    const pill = e.target.closest('.filter-pill');
+                    if(pill){
+                        console.log('filter-pill click', pill.dataset.value, pill);
+                        e.stopPropagation();
+                        const group = pill.parentElement && pill.parentElement.dataset.group;
+                        const val = pill.dataset.value;
+                        pill.classList.toggle('active');
+                        if(pill.classList.contains('active')) filtersState[group].add(val);
+                        else filtersState[group].delete(val);
+                        applyFilters();
+                        return;
+                    }
+                });
+
+                // keyboard support for buttons and pills (Enter/Space activates)
+                filtersBarEl.addEventListener('keydown', function(e){
+                    if(e.key === 'Enter' || e.key === ' '){
+                        const btn = e.target.closest('.filters-btn');
+                        if(btn){ e.preventDefault(); btn.click(); }
+                        const pill = e.target.closest('.filter-pill');
+                        if(pill){ e.preventDefault(); pill.click(); }
+                    }
+                });
+
+            }
+
+            // Close panels when clicking outside (also reset arrows)
+            document.addEventListener('click', function(e){
+                if(!e.target.closest('.filters-container')){
+                    document.querySelectorAll('.filters-panel').forEach(p => p.classList.remove('open'));
+                    document.querySelectorAll('.filters-btn.open').forEach(b => { b.classList.remove('open'); b.setAttribute('aria-expanded','false'); });
+                }
+            });
+
+            // Sorting
+            function applySort(){
+                const sel = document.getElementById('sort-select');
+                const mode = sel ? sel.value : 'recommended';
+                const container = document.getElementById('gift-results');
+                const cards = Array.from(container.querySelectorAll('.group')).filter(c => c.style.display !== 'none');
+                if(mode === 'price-asc') cards.sort((a,b) => parseFloat(a.dataset.price||0) - parseFloat(b.dataset.price||0));
+                if(mode === 'price-desc') cards.sort((a,b) => parseFloat(b.dataset.price||0) - parseFloat(a.dataset.price||0));
+                cards.forEach(c => container.appendChild(c));
+
+                // re-render pagination after sorting
+                renderPagination();
+            }
+const sortSelect = document.getElementById('sort-select'); if(sortSelect) sortSelect.addEventListener('change', function(){ currentPage = 1; applySort(); });
+
+            // Pagination rendering
+            function renderPagination(){
+                const container = document.getElementById('gift-results');
+                const nav = document.getElementById('pagination');
+                if(!container) return;
+                if(!nav){ console.warn('Pagination nav missing'); return; }
+
+                const allCards = Array.from(container.querySelectorAll('.group'));
+                const filtered = allCards.filter(c => c.style.display !== 'none');
+                const total = filtered.length;
+                const totalPages = Math.max(1, Math.ceil(total / pageSize));
+                if(currentPage > totalPages) currentPage = totalPages;
+
+                console.log('renderPagination', { total, totalPages, currentPage, allCount: allCards.length });
+
+                // hide all cards then show current page slice
+                allCards.forEach(c => c.style.display = 'none');
+                const start = (currentPage - 1) * pageSize;
+                const end = start + pageSize;
+                filtered.slice(start, end).forEach(c => c.style.display = '');
+
+                // temporary visual debug to ensure nav is visible while debugging
+                nav.style.outline = '1px dashed rgba(220,38,38,0.25)';
+
+                updatePaginationControls(totalPages, currentPage, total);
+            }
+
+            function updatePaginationControls(totalPages, currentPage, totalItems){
+                const nav = document.getElementById('pagination');
+                if(!nav) return;
+                nav.innerHTML = '';
+
+                // new styled pagination: summary | prev | numbered buttons | next
+                const wrapper = document.createElement('div'); wrapper.className = 'flex items-center gap-3';
+
+                const summary = document.createElement('div'); summary.className = 'text-sm text-toy-gray hidden sm:block';
+                const startItem = totalItems === 0 ? 0 : ((currentPage - 1) * pageSize) + 1;
+                const endItem = Math.min(totalItems, currentPage * pageSize);
+                summary.textContent = `${startItem}–${endItem} از ${totalItems}`;
+                wrapper.appendChild(summary);
+
+                const prev = document.createElement('button'); prev.className = 'pg-btn'; prev.innerHTML = '<i class="fas fa-chevron-right"></i>';
+                prev.disabled = currentPage <= 1;
+                prev.setAttribute('aria-label','صفحه قبلی');
+                prev.addEventListener('click', function(){ if(currentPage>1){ currentPage--; renderPagination(); window.scrollTo({top: document.getElementById('filters-bar').offsetTop - 12, behavior:'smooth'}); }});
+                wrapper.appendChild(prev);
+
+                // page numbers (compact)
+                const maxPages = 5; let startPage = Math.max(1, currentPage - Math.floor(maxPages/2)); let endPage = Math.min(totalPages, startPage + maxPages - 1);
+                if(endPage - startPage + 1 < maxPages) startPage = Math.max(1, endPage - maxPages + 1);
+                const pagesWrap = document.createElement('div'); pagesWrap.className = 'inline-flex items-center gap-2';
+                for(let p = startPage; p <= endPage; p++){
+                    const b = document.createElement('button'); b.className = 'pg-btn pg-num'; b.textContent = p;
+                    if(p === currentPage){
+                        b.classList.add('pg-active');
+                        b.disabled = true;
+                        b.setAttribute('aria-current','page');
+                    }
+                    b.addEventListener('click', function(){ currentPage = p; renderPagination(); window.scrollTo({top: document.getElementById('filters-bar').offsetTop - 12, behavior:'smooth'}); });
+                    pagesWrap.appendChild(b);
+                }
+                wrapper.appendChild(pagesWrap);
+
+                const next = document.createElement('button'); next.className = 'pg-btn'; next.innerHTML = '<i class="fas fa-chevron-left"></i>';
+                next.disabled = currentPage >= totalPages;
+                next.setAttribute('aria-label','صفحه بعدی');
+                next.addEventListener('click', function(){ if(currentPage<totalPages){ currentPage++; renderPagination(); window.scrollTo({top: document.getElementById('filters-bar').offsetTop - 12, behavior:'smooth'}); }});
+                wrapper.appendChild(next);
+
+                nav.appendChild(wrapper);
+
+                // show or hide nav when no items
+                nav.style.display = totalItems ? 'flex' : 'none';
+
+                // disable if only a single page and no items
+                if(totalPages <= 1) nav.style.display = totalItems ? 'flex' : 'none'; else nav.style.display = 'flex';
+            }
+
+            // ensure pagination runs on initial load
+            document.addEventListener('DOMContentLoaded', function(){ document.querySelectorAll('.filters-panel').forEach(p => p.classList.remove('open')); renderPagination(); });
+
+            // Clear filters button
+            const clearBtn = document.getElementById('clear-filters-btn');
+            function clearFilters(){
+                // Remove active pills
+                document.querySelectorAll('.filters-panel .filter-pill.active').forEach(p => p.classList.remove('active'));
+                // Clear state
+                Object.keys(filtersState).forEach(k => filtersState[k].clear());
+                // Close any open panels
+                document.querySelectorAll('.filters-panel').forEach(p => p.classList.remove('open'));
+                // Reset any open buttons
+                document.querySelectorAll('.filters-btn.open').forEach(b => { b.classList.remove('open'); b.setAttribute('aria-expanded','false'); });
+                // Reset sort to recommended
+                const sortSel = document.getElementById('sort-select'); if(sortSel) sortSel.value = 'recommended';
+                // Re-run filters (this will show all items)
+                applyFilters();
+            }
+            if(clearBtn) clearBtn.addEventListener('click', clearFilters);
+
+
+
+            // Initialize theme and close any open panels on load
+            document.addEventListener('DOMContentLoaded', function(){ document.querySelectorAll('.filters-panel').forEach(p => p.classList.remove('open')); });
+
+        })();
+    </script>
+</body>
+</html>

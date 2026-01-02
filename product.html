@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product • ToyWonder</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        toy: {
+                            primary: '#6EC1E4',   // Soft Sky Blue
+                            secondary: '#8B7CF6', // Warm Lavender
+                            accent: '#FF8A65',    // Soft Coral
+                            success: '#7ED9A8',   // Mint Green
+                            bg: '#F9FAFC',        // Off-white
+                            dark: '#2E2E2E',      // Charcoal
+                            gray: '#6B7280',      // Muted Gray
+                            footer: '#5B5FEF'     // Deep Lavender
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 10px 40px -10px rgba(0,0,0,0.08)',
+                        'card': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Nunito', sans-serif; }
+    </style>
+        <style>
+        /* Dark mode overrides */
+        :root {
+            --toy-bg: #F9FAFC;
+            --toy-dark: #2E2E2E;
+            --toy-gray: #6B7280;
+            --card-bg: #ffffff;
+        }
+        html.dark {
+            --toy-bg: #0b1220;
+            --toy-dark: #e6eef8;
+            --toy-gray: #9CA3AF;
+            /* make product/card background slightly lighter than page */
+            --card-bg: #0f1724;
+            --accent-secondary-dark: #C7D0FF;
+        }
+        body {
+            background-color: var(--toy-bg);
+            color: var(--toy-dark);
+        }
+        html.dark header {
+            background-color: rgba(8,12,20,0.9) !important;
+        }
+        /* General dark overrides */
+        html.dark .bg-white { background-color: var(--card-bg) !important; }
+        html.dark .bg-toy-bg { background-color: var(--toy-bg) !important; }
+        html.dark .text-toy-dark { color: var(--toy-dark) !important; }
+        html.dark .text-toy-gray { color: var(--toy-gray) !important; }
+        html.dark .bg-toy-footer { background-color:#0b1220 !important; }
+        html.dark .shadow-soft { box-shadow: 0 10px 30px -10px rgba(0,0,0,0.6) !important; }
+        html.dark .bg-white/20 { background-color: rgba(255,255,255,0.04) !important; }
+        html.dark .bg-white/10 { background-color: rgba(255,255,255,0.04) !important; }
+        html.dark .bg-white/90 { background-color: rgba(8,12,20,0.9) !important; }
+
+        /* Product card specific overrides to ensure visibility in dark mode */
+        html.dark #products .bg-white { background-color: var(--card-bg) !important; border-color: rgba(255,255,255,0.04) !important; }
+        html.dark #products .text-gray-800 { color: var(--toy-dark) !important; }
+        html.dark #products h4 { color: var(--toy-dark) !important; }
+        html.dark #products .text-toy-secondary { color: var(--accent-secondary-dark) !important; }
+        html.dark #products .bg-gray-100 { background-color: rgba(255,255,255,0.03) !important; }
+        html.dark #products .bg-toy-success { background-color: #2fda95 !important; }
+        html.dark #products .shadow-card { box-shadow: 0 6px 18px rgba(0,0,0,0.6) !important; }
+        html.dark #products .group:hover { transform: translateY(-6px) !important; }
+
+        /* Ensure buttons on product cards are visible */
+        html.dark #products .bg-toy-success.text-white { background-color: #2fda95 !important; color: #062018 !important; }
+        html.dark #products .text-gray-800 + .font-bold { color: var(--toy-dark) !important; }
+
+        /* Progress bars (small bars) more visible */
+        html.dark #products .w-full.bg-gray-100 { background-color: rgba(255,255,255,0.04) !important; }
+        html.dark #products .bg-toy-success.h-1\.5 { background-color: #2fda95 !important; }
+    
+    </style>
+</head>
+<body class="bg-toy-bg text-toy-dark">
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm transition-all duration-300">
+        <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="bg-toy-primary text-white w-10 h-10 rounded-full flex items-center justify-center text-xl font-black rotate-3 group-hover:rotate-12 transition-transform">T</div>
+                <span class="text-2xl font-black text-toy-secondary tracking-tight">Toy<span class="text-toy-primary">Wonder</span></span>
+            </a>
+
+            <nav class="hidden md:flex items-center gap-8 font-bold text-toy-gray">
+                <a href="index.html" class="hover:text-toy-secondary transition-colors">Home</a>
+                <a href="#new-arrivals" class="hover:text-toy-secondary transition-colors">New Arrivals</a>
+                <a href="products.html" class="hover:text-toy-secondary transition-colors">Products</a>
+                <a href="gift-guide.html" class="hover:text-toy-secondary transition-colors">Gift Guide</a>                
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle-btn" class="w-10 h-10 rounded-full bg-white/10 text-toy-dark flex items-center justify-center hover:bg-white/20 transition-colors" aria-label="Toggle theme" title="Toggle theme">
+                    <i id="theme-toggle-icon" class="fas fa-moon text-xl"></i>
+                </button>
+                <button class="w-10 h-10 rounded-full bg-pink-100 text-pink-600 flex items-center justify-center hover:bg-pink-200 transition-colors" aria-label="Instagram">
+                    <i class="fab fa-instagram text-xl"></i>
+                </button>
+                <button class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center hover:bg-green-200 transition-colors" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp text-xl"></i>
+                </button>
+
+                <!-- Shopping cart -->
+                <a href="cart.html" class="relative w-10 h-10 rounded-full bg-white/10 text-toy-dark flex items-center justify-center hover:bg-white/20 transition-colors" aria-label="View cart" title="Cart">
+                    <i class="fas fa-shopping-cart text-xl"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-toy-accent text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold">0</span>
+                </a>
+
+                <!-- User account (link to account page) -->
+                <a href="account.html" class="relative w-10 h-10 rounded-full bg-white/10 text-toy-dark flex items-center justify-center hover:bg-white/20 transition-colors" title="Account">
+                    <i class="fas fa-user text-xl"></i>
+                </a>
+
+                <button class="hidden sm:flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-toy-primary to-toy-secondary text-white font-bold shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all text-sm">
+                    <i class="fas fa-file-pdf"></i>
+                    <span>Catalog PDF</span>
+                </button>
+                <button id="mobile-menu-btn" class="md:hidden text-toy-dark text-2xl ml-2" aria-controls="mobile-menu" aria-expanded="false" aria-label="Open menu">
+                    <i id="mobile-menu-icon" class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <div id="product-area" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div id="media" class="lg:col-span-1 bg-white rounded-2xl p-6 shadow-card">
+                <!-- image inserted by JS -->
+            </div>
+
+            <div class="lg:col-span-2 bg-white rounded-2xl p-8 shadow-card">
+                <div id="meta">
+                    <!-- product title, price, features go here -->
+                </div>
+
+                <hr class="my-6">
+
+                <div id="comments" class="mt-4">
+                    <h3 class="text-xl font-bold mb-3">Comments</h3>
+
+                    <div id="comments-list" class="space-y-4 mb-6">
+                        <!-- comments rendered here -->
+                    </div>
+
+                    <form id="comment-form" class="space-y-3">
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <input id="comment-name" required placeholder="Your name" class="col-span-1 sm:col-span-1 px-4 py-3 rounded-lg border focus:outline-none">
+                            <input id="comment-email" type="email" placeholder="Email (optional)" class="col-span-1 sm:col-span-1 px-4 py-3 rounded-lg border focus:outline-none">
+                        </div>
+                        <textarea id="comment-text" required placeholder="Write a short comment" rows="4" class="w-full px-4 py-3 rounded-lg border focus:outline-none"></textarea>
+                        <div class="flex items-center gap-3">
+                            <button type="submit" class="px-6 py-3 rounded-full bg-toy-accent text-white font-bold">Post Comment</button>
+                            <button type="button" id="clear-comments" class="px-4 py-2 rounded-lg bg-gray-100">Clear comments</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="mt-10">
+            <a href="index.html" class="inline-flex items-center gap-2 text-toy-primary font-bold"><i class="fas fa-arrow-left"></i> Back to store</a>
+        </div>
+    </main>
+
+   <footer class="bg-toy-footer text-white pt-20 pb-10">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <div>
+                    <a href="#" class="flex items-center gap-2 mb-6">
+                        <div class="bg-white text-toy-footer w-10 h-10 rounded-full flex items-center justify-center text-xl font-black">T</div>
+                        <span class="text-2xl font-black tracking-tight">ToyWonder</span>
+                    </a>
+                    <p class="text-white/70 leading-relaxed mb-6">
+                        We believe in the power of play. Our toys are carefully selected to bring joy, learning, and safety to every home.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-toy-footer transition-all"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-toy-footer transition-all"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-white hover:text-toy-footer transition-all"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xl mb-6">Quick Links</h4>
+                    <ul class="space-y-3 text-white/70">
+                        <li><a href="#" class="hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Shop All Toys</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Age Guide</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Gift Cards</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xl mb-6">Customer Care</h4>
+                    <ul class="space-y-3 text-white/70">
+                        <li><a href="#" class="hover:text-white transition-colors">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Track Order</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Safety Info</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-xl mb-6">Contact Us</h4>
+                    <ul class="space-y-4 text-white/70">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1"></i>
+                            <span>123 Rainbow Street, Playville, PL 98765</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope"></i>
+                            <span>hello@toywonder.com</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-white/10 pt-8 text-center text-white/50 text-sm">
+                <p>&copy; 2023 ToyWonder Inc. Made with <i class="fas fa-heart text-red-400 mx-1"></i> for kids.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple product database (client-side) — extendable
+        const PRODUCTS = {
+            'stacking-rings': {
+                title: 'Stacking Rings',
+                price: '$12.50',
+                img: 'https://images.unsplash.com/photo-1618842676088-c4d48a6a7c9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                images: [
+                    'https://images.unsplash.com/photo-1618842676088-c4d48a6a7c9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1555685812-4b943f1bf2b8?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1543163521-1bf4a8a1b1f4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1544378735-eb8dc3d6f1b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1518976024611-0f73f8e85d2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1503271153866-65d6a1a1a7d3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1487017159836-2d6b3f23bcd7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+                ],
+                description: 'Colorful soft rings that help babies learn shapes and stacking. BPA-free and machine washable.',
+                features: [ 'BPA-free soft rings', 'Color recognition', 'Hand-eye coordination', 'Machine washable' ]
+            },
+            'wooden-plane': {
+                title: 'Wooden Plane',
+                price: '$29.99',
+                img: 'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                images: [
+                    'https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1526178615723-4aa21a8202e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1544973426-28043e5f2b0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1523473827532-6b9c574f3f5b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1523986371872-9d3ba2e2f642?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1516387938699-a93567ec168e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+                ],
+                description: 'Handcrafted wooden plane with smooth edges and non-toxic finish.',
+                features: [ 'Handcrafted wood', 'Non-toxic paint', 'Durable and safe', 'Ages 2+' ]
+            },
+            'duck-family': {
+                title: 'Duck Family',
+                price: '$15.00',
+                img: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                images: [
+                    'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1505575967455-1f2ca37d2b2f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1520962912516-bd0a3d4d7c20?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1528977695567-6a7b3bbd2b2f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+                ],
+                description: 'Cute, squeaky duck family set for bath time and imaginative play.',
+                features: [ 'Squeaky toys', 'Soft edges', 'Great for bath time' ]
+            },
+            'shape-sorter': {
+                title: 'Shape Sorter',
+                price: '$32.00',
+                img: 'https://images.unsplash.com/photo-1549152691-b89c5b3a5a8a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                images: [
+                    'https://images.unsplash.com/photo-1549152691-b89c5b3a5a8a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1512428559087-560fa5ceab42?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1549576490-b0b4831ef60a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1536683057880-46ae0a1fbfa3?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1532497453745-023b9b276f10?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1543939907-2b5b6b3b3b3c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1519677100203-a0e668c92439?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+                ],
+                description: 'Colorful shape sorter box that builds problem solving and fine motor skills.',
+                features: [ 'Multiple shapes', 'Bright colors', 'Problem solving skills' ]
+            },
+            'alphabet-blocks': {
+                title: 'Alphabet Blocks',
+                price: '$19.50',
+                img: 'https://images.unsplash.com/photo-1599623560574-39d485900c95?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                images: [
+                    'https://images.unsplash.com/photo-1599623560574-39d485900c95?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1580910051076-8a4a6b3b3b3b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1536665767840-7e6f5c3f2a2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1505691723518-36a7f5e6f1b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1512820790803-83ca734da794?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1524758631624-e2822e304c36?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+                ],
+                description: 'Soft wooden alphabet blocks that introduce letters and basic words.',
+                features: [ 'A-Z letters', 'Safe edges', 'Durable wood' ]
+            },
+            'gift-box-set': {
+                title: 'Gift Box Set',
+                price: '$55.00',
+                img: 'https://images.unsplash.com/photo-1513884923967-4b182ef1671f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                images: [
+                    'https://images.unsplash.com/photo-1513884923967-4b182ef1671f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1526506118085-60ce8714f4c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1526178615723-4aa21a8202e6?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1526045612212-70caf35c14df?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1503389152951-6e6e21b1b1b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+                ],
+                description: 'Curated gift box set for special occasions. Includes surprise toy and stickers.',
+                features: [ 'Curated assortment', 'Gift-ready box', 'Premium wrapping' ]
+            },
+            'super-hero': {
+                title: 'Super Hero',
+                price: '$14.99',
+                img: 'https://images.unsplash.com/photo-1545558014-8692077e9b5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                images: [
+                    'https://images.unsplash.com/photo-1545558014-8692077e9b5c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1541532713592-79a0317b6b77?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1504215680853-026ed2a45def?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1520975911573-0b1f4d4a7efe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1504298066881-3f2c3b2b2b2b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+                ],
+                description: 'Action figure with flexible joints and removable cape.',
+                features: [ 'Flexible joints', 'Includes cape', 'Great for imaginative play' ]
+            },
+            'dinosaur-plush': {
+                title: 'Dinosaur Plush',
+                price: '$22.00',
+                img: 'https://images.unsplash.com/photo-1566576912902-1d61994e9f73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+                images: [
+                    'https://images.unsplash.com/photo-1566576912902-1d61994e9f73?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1526318472351-c75fcf070f47?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1511344509375-11c2a7b9b1a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1544525120-8e45f9f9a8b4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1503602642458-232111445657?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'https://images.unsplash.com/photo-1502857321905-9b3b0f5aa4f2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'
+                ],
+                description: 'Eco-friendly plush dinosaur made from recycled materials.',
+                features: [ 'Eco-friendly', 'Super soft', 'Machine washable' ]
+            }
+        };
+
+        // Helpers
+        function qs(key) {
+            const url = new URL(window.location.href);
+            return url.searchParams.get(key);
+        }
+
+        function el(selector){ return document.querySelector(selector); }
+
+        function renderProduct(slug) {
+            const product = PRODUCTS[slug];
+            const media = el('#media');
+            const meta = el('#meta');
+
+            if (!product) {
+                meta.innerHTML = '<h1 class="text-3xl font-black">Product not found</h1><p class="mt-3 text-toy-gray">The product you requested was not found.</p>';
+                media.innerHTML = '';
+                return;
+            }
+
+            const images = product.images && product.images.length ? product.images : [product.img];
+            media.innerHTML = `
+                <div class="space-y-4">
+                    <div id="main-photo" class="w-full h-64 bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center">
+                        <img id="main-image" src="${images[0]}" alt="${product.title}" class="w-full h-64 object-cover rounded-lg transition-all">
+                    </div>
+                    <div class="grid grid-cols-2 gap-3 mt-2" id="thumbnails" aria-label="Product thumbnails">
+                        ${images.map((src, i) => `<img src="${src}" data-index="${i}" alt="${product.title} - ${i+1}" role="button" aria-selected="${i===0 ? 'true' : 'false'}" tabindex="0" class="w-full h-20 object-cover rounded-lg cursor-pointer border ${i===0 ? 'ring-4 ring-toy-primary' : 'border-transparent'}">`).join('')}
+                    </div>
+                </div>
+            `;
+
+            meta.innerHTML = `
+                <h1 class="text-3xl font-black">${product.title}</h1>
+                <p class="text-toy-secondary text-2xl font-bold mt-2">${product.price}</p>
+                <p class="text-toy-gray mt-4">${product.description}</p>
+
+                <div class="mt-6">
+                    <h4 class="font-bold mb-2">Features</h4>
+                    <ul class="list-disc pl-5 text-toy-gray">
+                        ${product.features.map(f => `<li>${f}</li>`).join('')}
+                    </ul>
+                </div>
+
+                <div class="mt-6 flex gap-3">
+                    <button id="add-to-cart" class="px-6 py-3 rounded-full bg-toy-success text-white font-bold">Add to Cart</button>
+                    <button id="buy-now" class="px-6 py-3 rounded-full bg-toy-primary text-white font-bold">Buy now</button>
+                </div>
+            `;
+
+            // Init gallery and comments area
+            initGallery(slug, product);
+            initComments(slug);
+        }
+
+        // Comments (localStorage per product)
+        function commentsKey(slug){ return `comments:${slug}`; }
+
+        function loadComments(slug){
+            try {
+                const raw = localStorage.getItem(commentsKey(slug));
+                return raw ? JSON.parse(raw) : [];
+            } catch(e){ return []; }
+        }
+
+        function saveComments(slug, comments){
+            localStorage.setItem(commentsKey(slug), JSON.stringify(comments));
+        }
+
+        function formatDate(ts){
+            const d = new Date(ts);
+            return d.toLocaleString();
+        }
+
+        function renderComments(slug){
+            const list = el('#comments-list');
+            const items = loadComments(slug);
+            if (!items.length){
+                list.innerHTML = '<p class="text-toy-gray">Be the first to comment.</p>';
+                return;
+            }
+            list.innerHTML = items.map(c => `
+                <div class="bg-gray-50 border rounded-lg p-3">
+                    <div class="flex items-center justify-between mb-2">
+                        <div class="font-bold">${escapeHtml(c.name || 'Anonymous')}</div>
+                        <div class="text-xs text-toy-gray">${formatDate(c.ts)}</div>
+                    </div>
+                    <div class="text-toy-gray">${escapeHtml(c.text)}</div>
+                </div>
+            `).join('');
+        }
+
+        function initComments(slug){
+            renderComments(slug);
+
+            const form = el('#comment-form');
+            form.onsubmit = function(e){
+                e.preventDefault();
+                const name = el('#comment-name').value.trim();
+                const email = el('#comment-email').value.trim();
+                const text = el('#comment-text').value.trim();
+                if (!text) return;
+                const comments = loadComments(slug);
+                comments.unshift({ name: name || 'Anonymous', email: email || '', text, ts: Date.now() });
+                saveComments(slug, comments);
+                el('#comment-name').value = '';
+                el('#comment-email').value = '';
+                el('#comment-text').value = '';
+                renderComments(slug);
+            };
+
+            el('#clear-comments').onclick = function(){
+                if (!confirm('Clear all comments for this product?')) return;
+                saveComments(slug, []);
+                renderComments(slug);
+            };
+        }
+
+        function initGallery(slug, product){
+            const imgs = (product.images && product.images.length) ? product.images : [product.img];
+            const main = el('#main-image');
+            const thumbs = document.querySelectorAll('#thumbnails img');
+            if (!main || !thumbs) return;
+            thumbs.forEach(t => {
+                t.addEventListener('click', function(){
+                    const src = this.src || this.getAttribute('src');
+                    main.src = src;
+                    thumbs.forEach(x => { x.classList.remove('ring-4','ring-toy-primary'); x.setAttribute('aria-selected','false'); });
+                    this.classList.add('ring-4','ring-toy-primary');
+                    this.setAttribute('aria-selected','true');
+                });
+                t.addEventListener('keydown', function(e){
+                    if (e.key === 'Enter' || e.key === ' ') { this.click(); e.preventDefault(); }
+                });
+                t.setAttribute('tabindex', '0');
+            });
+        }
+
+        // Very small helper to avoid XSS when rendering comments
+        function escapeHtml(unsafe){
+            return unsafe
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/\"/g, "&quot;")
+                .replace(/\'/g, "&#039;");
+        }
+
+        // Kick off
+        (function(){
+            const slug = qs('slug') || '';
+            renderProduct(slug);
+        })();
+    </script>
+        <script>
+        (function() {
+            const themeToggleBtnId = 'theme-toggle-btn';
+            const themeToggleIconId = 'theme-toggle-icon';
+
+            function setTheme(isDark) {
+                document.documentElement.classList.toggle('dark', isDark);
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                const btn = document.getElementById(themeToggleBtnId);
+                const icon = document.getElementById(themeToggleIconId);
+                if (btn && icon) {
+                    icon.className = isDark ? 'fas fa-sun text-yellow-400' : 'fas fa-moon';
+                    btn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+                }
+            }
+
+            // Initialize from saved preference or system
+            const saved = localStorage.getItem('theme');
+            if (saved) {
+                setTheme(saved === 'dark');
+            } else {
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                setTheme(prefersDark);
+            }
+
+            // Toggle on click
+            document.addEventListener('click', function(e){
+                const target = e.target.closest('#' + themeToggleBtnId);
+                if (!target) return;
+                const isDark = document.documentElement.classList.toggle('dark');
+                localStorage.setItem('theme', isDark ? 'dark' : 'light');
+                const icon = document.getElementById(themeToggleIconId);
+                icon.className = isDark ? 'fas fa-sun text-yellow-400' : 'fas fa-moon';
+                target.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+            });
+        })();
+    </script>
+</body>
+</html>
